@@ -1,0 +1,868 @@
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Blog Generator</title>
+</head>
+<body>
+   <style>
+    body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+    color: #333;
+    scroll-behavior: smooth; /* Smooth scroll for anchor links */
+}
+
+header {
+    background-color: #282c34;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeInDown 1s ease-in-out; /* Scroll animation */
+}
+
+h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+.primary-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.primary-btn:hover {
+    background-color: #0056b3;
+}
+
+.secondary-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+.secondary-btn:hover {
+    background-color: #495057;
+}
+
+.danger-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.danger-btn:hover {
+    background-color: #c82333;
+}
+
+main {
+    padding: 40px 20px;
+    animation: fadeInUp 1s ease-in-out; /* Scroll animation */
+}
+
+.input-container {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-container label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="file"] {
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px solid #ced4da;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="file"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+#input-section {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 1s ease-in-out; /* Scroll animation */
+}
+
+#loading-section {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 1s ease-in-out; /* Scroll animation */
+}
+
+.spinner {
+    border: 4px solid #f0f2f5;
+    border-radius: 50%;
+    border-top: 4px solid #007bff;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    margin-top: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#result-section {
+    display: none;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 1s ease-in-out; /* Scroll animation */
+}
+
+.blog-container {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #495057;
+}
+
+.source-info {
+    margin-top: 15px;
+    font-style: italic;
+    color: #6c757d;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.hidden {
+    display: none;
+}
+
+footer {
+    background-color: #282c34;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 1s ease-in-out; /* Scroll animation */
+}
+
+/* Scroll Animations */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.blog-item {
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+   </style>
+    <header>
+        <h1>AI Blog Generator</h1>
+        <div class="header-buttons">
+            <p class="welcome">Welcome</p>
+            <button id="view-tasks" class="secondary-btn"><a href="/blog/blogs" style="text-decoration: none; color: white;">View Generations</a></button>
+            <button id="logout" class="danger-btn"><a href="/logout/" style="text-decoration: none; color: white;">Logout</a></button>
+        </div>
+    </header>
+
+    <main>
+        <section id="input-section">
+            <div class="input-container">
+                <label for="link-input">Paste a YouTube Link:</label>
+                <input type="text" id="link-input" placeholder="Enter YouTube link...">
+            </div>
+            <div class="input-container">
+                <label for="file-upload">Upload a File:</label>
+                <input type="file" id="file-upload">
+            </div>
+            <button id="generate-btn" class="primary-btn">Generate Blog</button>
+        </section>
+
+        <section id="loading-section" class="hidden">
+            <p>Generating your blog, please wait...</p>
+            <div class="spinner"></div>
+        </section>
+
+        <section id="result-section" class="hidden">
+            <div id="blog-output" class="blog-container"></div>
+            <p id="source-info" class="source-info"></p>
+            <div class="action-buttons">
+                <button id="regenerate-btn" class="primary-btn">Regenerate</button>
+                <button id="save-btn" class="secondary-btn">Save</button>
+                <button id="delete-btn" class="danger-btn">Delete</button>
+            </div>
+        </section>
+
+        <!-- Blog List Section -->
+        <!-- <section id="blogsContainer"></section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 AI Blog Generator. All rights reserved. Built by Ephey Hertz</p>
+    </footer>
+
+    <script> -->
+<!-- document.getElementById('generate-btn').addEventListener('click', function() {
+    let thetoken,theuserId;
+    // Get the values from the input fields
+    const youtubeLink = document.getElementById('link-input').value.trim();
+    const fileInput = document.getElementById('file-upload').files[0];
+
+    // Check if form data is empty
+    if (!youtubeLink && !fileInput) {
+        alert("Please provide either a YouTube link or upload a file.");
+        return; // Prevent form submission
+    }
+
+    // Check if both file and YouTube link are provided
+    if (youtubeLink && fileInput) {
+        alert("Please provide either a YouTube link or upload a file, not both.");
+        return; // Prevent form submission
+    }
+
+    // Prepare the form data to be sent
+    const formData = new FormData();
+    if (youtubeLink) {
+        formData.append('youtube_link', youtubeLink);
+    }
+    if (fileInput) {
+        formData.append('file', fileInput);
+    }
+
+    // Hide input section, show loading section
+    document.getElementById('input-section').classList.add('hidden');
+    document.getElementById('loading-section').classList.remove('hidden');
+
+    // Fetch the token and userId
+    // Promise.all([
+    //     fetch('/user/token').then(response => response.json()),
+    //     fetch('/user/userId').then(response => response.json())
+    // ]).then(([tokenData, userIdData]) => {
+    //     thetoken = tokenData.token;
+    //     theuserId = userIdData.userId;
+        thetoken  = localStorage.getItem('token');
+        console.log(thetoken)
+        
+   
+        theuserId = localStorage.getItem('userID');
+        console.log(theuserId)
+
+        // Now make the fetch request to generate the blog
+        fetch('blog/generate_blog', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${thetoken}`,
+                'X-User-ID': theuserId,
+                 
+            },
+            body: formData,
+        })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Something went wrong with the blog generation.');
+        }
+    }).then(data => {
+        // Display the generated content
+        document.getElementById('blog-output').innerText = data.generated_content;
+        document.getElementById('source-info').innerText = data.transcription;
+    }).catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while generating the blog. Please try again.');
+    }).finally(() => {
+        // Hide loading section, show result section
+        document.getElementById('loading-section').classList.add('hidden');
+        document.getElementById('result-section').classList.remove('hidden');
+    });
+});
+
+// Regenerate the blog
+document.getElementById('regenerate-btn').addEventListener('click', function() {
+    const userId = theuserId; // Assuming userId is available
+    const blogContent = document.getElementById('blog-output').innerText;
+
+    fetch(`/blog/blogs/${userId}`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${thetoken}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            content: blogContent,
+        })
+    }).then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Something went wrong with the blog regeneration.');
+        }
+    }).then(data => {
+        document.getElementById('blog-output').innerText = data.generated_content;
+        document.getElementById('source-info').innerText = data.transcription;
+    }).catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while regenerating the blog. Please try again.');
+    });
+});
+
+// Delete the blog
+document.getElementById('delete-btn').addEventListener('click', function() {
+    const userId = theuserId; // Assuming userId is available
+
+    fetch(`/delete/${blogid}/delete`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${thetoken}`,
+        }
+    }).then(response => {
+        if (response.ok) {
+            alert('Blog successfully deleted.');
+            document.getElementById('result-section').classList.add('hidden');
+            document.getElementById('input-section').classList.remove('hidden');
+        } else {
+            throw new Error('Something went wrong with deleting the blog.');
+        }
+    }).catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while deleting the blog. Please try again.');
+    });
+});
+
+// View all blogs
+document.getElementById('view-tasks').addEventListener('click', function() {
+    const userId = theuserId; // Assuming userId is available
+
+    fetch(`blog/blogs/${userId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${thetoken}`,
+        }
+    }).then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Something went wrong while fetching blogs.');
+        }
+    }).then(data => {
+        const blogsContainer = document.getElementById('blogsContainer');
+        blogsContainer.innerHTML = ''; // Clear previous content
+        data.blogs.forEach(blog => {
+            const blogItem = document.createElement('div');
+            blogItem.className = 'blog-item';
+            blogItem.innerHTML = `
+                <h3>${blog.title}</h3>
+                <p>${blog.content}</p>
+            `;
+            blogsContainer.appendChild(blogItem);
+        });
+    }).catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while viewing blogs. Please try again.');
+    });
+});
+
+</script>
+</body>
+</html> --> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Blog Generator</title>
+    
+</head>
+<body>
+   <style>
+    body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+    color: #333;
+    scroll-behavior: smooth; /* Smooth scroll for anchor links */
+}
+
+header {
+    background-color: #282c34;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeInDown 1s ease-in-out; /* Scroll animation */
+}
+
+h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+.primary-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.primary-btn:hover {
+    background-color: #0056b3;
+}
+
+.secondary-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+.secondary-btn:hover {
+    background-color: #495057;
+}
+
+.danger-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.danger-btn:hover {
+    background-color: #c82333;
+}
+
+main {
+    padding: 40px 20px;
+    animation: fadeInUp 1s ease-in-out; /* Scroll animation */
+}
+
+.input-container {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-container label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="file"] {
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px solid #ced4da;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="file"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+#input-section {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 1s ease-in-out; /* Scroll animation */
+}
+
+#loading-section {
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 1s ease-in-out; /* Scroll animation */
+}
+
+.spinner {
+    border: 4px solid #f0f2f5;
+    border-radius: 50%;
+    border-top: 4px solid #007bff;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    margin-top: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#result-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 1s ease-in-out; /* Scroll animation */
+}
+
+.blog-container {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #495057;
+}
+
+.source-info {
+    margin-top: 15px;
+    font-style: italic;
+    color: #6c757d;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.hidden {
+    display: none;
+}
+
+footer {
+    background-color: #282c34;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 1s ease-in-out; /* Scroll animation */
+}
+
+/* Scroll Animations */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+   </style>
+    <header>
+        <h1>AI Blog Generator</h1>
+        <div class="header-buttons">
+            <p class="welcome">Welcome</p>
+            <button id="view-tasks" class="secondary-btn"><a href="/blog/blogs">View Generations</a></button>
+            <button id="logout" class="danger-btn"><a href="/logout/">Logout</a></button>
+        </div>
+    </header>
+    
+    <main>
+        <section id="input-section">
+            <div class="input-container">
+                <label for="link-input">Paste a YouTube Link:</label>
+                <input type="text" id="link-input" placeholder="Enter YouTube link...">
+            </div>
+            <div class="input-container">
+                <label for="file-upload">Upload a File:</label>
+                <input type="file" id="file-upload">
+            </div>
+            <button id="generate-btn" class="primary-btn">Generate Blog</button>
+        </section>
+    
+        <section id="loading-section" class="hidden">
+            <p>Generating your blog, please wait...</p>
+            <div class="spinner"></div>
+        </section>
+    
+        <section id="result-section" class="hidden">
+            <div id="blog-output" class="blog-container"></div>
+            <p id="source-info" class="source-info"></p>
+            <button id="regenerate-btn" class="primary-btn">Regenerate Blog</button>
+            <button id="save-btn" class="secondary-btn">Save Blog</button>
+            <button id="delete-btn" class="danger-btn">Delete Blog</button>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 AI Blog Generator. All rights reserved. Built by Ephey Hertz</p>
+    </footer>
+    
+    <script>
+    document.getElementById('generate-btn').addEventListener('click', function() {
+        // Get the values from the input fields
+        const youtubeLink = document.getElementById('link-input').value.trim();
+        const fileInput = document.getElementById('file-upload').files[0];
+    
+        // Check if form data is empty
+        if (!youtubeLink && !fileInput) {
+            alert("Please provide either a YouTube link or upload a file.");
+            return; // Prevent form submission
+        }
+    
+        // Check if both file and YouTube link are provided
+        if (youtubeLink && fileInput) {
+            alert("Please provide either a YouTube link or upload a file, not both.");
+            return; // Prevent form submission
+        }
+    
+        // Prepare the form data to be sent
+        const formData = new FormData();
+        if (youtubeLink) {
+            formData.append('youtube_link', youtubeLink);
+        }
+        if (fileInput) {
+            formData.append('file', fileInput);
+        }
+    
+        // Retrieve the token and user ID from local storage
+        const token = localStorage.getItem('token');
+        const userId = localStorage.getItem('userID');
+    
+        // Check if the token is present
+        if (!token) {
+            alert("User is not authenticated. Please log in.");
+            return; // Prevent form submission
+        }
+    
+        try {
+            // Show the loading section and hide the input section
+            document.getElementById('input-section').classList.add('hidden');
+            document.getElementById('loading-section').classList.remove('hidden');
+    
+            // Send the form data to the /generate_blog endpoint
+            fetch('/blog/generate_blog', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'X-User-ID': userId,
+                },
+                body: formData,
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error(`Network response was not ok: ${response.status} ${response.statusText}. Response body: ${text}`);
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Hide the loading section and show the result section
+                document.getElementById('loading-section').classList.add('hidden');
+                document.getElementById('result-section').classList.remove('hidden');
+    
+                // Display the generated blog content
+                document.getElementById('blog-output').innerText = data.content;
+                document.getElementById('source-info').innerText = `Source: ${data.source || 'Unknown'}`;
+    
+                // Refresh the list of blogs after generation
+                fetchBlogs();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while generating the blog. Please try again.');
+                // Show the input section again in case of an error
+                document.getElementById('loading-section').classList.add('hidden');
+                document.getElementById('input-section').classList.remove('hidden');
+            });
+        } catch (error) {
+            alert('An unexpected error occurred: ' + error.message);
+            // Show the input section again in case of an error
+            document.getElementById('loading-section').classList.add('hidden');
+            document.getElementById('input-section').classList.remove('hidden');
+        }
+    });
+    
+    // Function to fetch all blogs
+    function fetchBlogs() {
+        fetch('/blog/blogs', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }
+        })
+        .then(response => response.json())
+        .then(blogs => {
+            const blogsContainer = document.getElementById('blogsContainer');
+            blogsContainer.innerHTML = ''; // Clear existing blogs
+    
+            blogs.forEach(blog => {
+                const blogElement = document.createElement('div');
+                blogElement.classList.add('blog-item');
+                blogElement.innerHTML = `
+                    <h3>${blog.youtube_title || 'No Title'}</h3>
+                    <p>${blog.transcript}</p>
+                    <button onclick="deleteBlog('${blog.id}')">Delete Blog</button>
+                `;
+                blogsContainer.appendChild(blogElement);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching blogs:', error);
+        });
+    }
+    
+    // Function to delete a blog
+    function deleteBlog(blogId) {
+        if (confirm('Are you sure you want to delete this blog?')) {
+            fetch(`/blog/blogs/${blogId}/delete`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    alert('Blog deleted successfully!');
+                    fetchBlogs(); // Refresh the list of blogs after deletion
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting blog:', error);
+            });
+        }
+    }
+    
+    document.getElementById('regenerate-btn').addEventListener('click', function() {
+        document.getElementById('input-section').classList.remove('hidden');
+        document.getElementById('result-section').classList.add('hidden');
+        document.getElementById('blog-output').innerText = '';
+        document.getElementById('source-info').innerText = '';
+    });
+    
+    document.getElementById('save-btn').addEventListener('click', function() {
+        alert("Blog saved successfully!");
+    });
+    
+    document.getElementById('delete-btn').addEventListener('click', function() {
+        if (confirm("Are you sure you want to delete this blog?")) {
+            document.getElementById('result-section').classList.add('hidden');
+            document.getElementById('input-section').classList.remove('hidden');
+            document.getElementById('blog-output').innerText = '';
+            document.getElementById('source-info').innerText = '';
+        }
+    });
+    
+    document.getElementById('logout').addEventListener('click', function() {
+        alert("Logged out successfully!");
+    });
+    
+    document.getElementById('view-tasks').addEventListener('click', function() {
+        alert("Viewing all tasks...");
+    });
+    
+    // Initial fetch of blogs when the page loads
+    fetchBlogs();
+    </script>
+    </body>
+    </html>
+    
