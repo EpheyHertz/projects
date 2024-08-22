@@ -113,19 +113,7 @@ app.get('/blog/blogs', isAuthenticated, async (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'allblogpost.html'));
 });
 
-// Firebase Configuration
-// const firebaseConfig = {
-//     apiKey: "AIzaSyB3F5-YTgNboSlSF95LeS8MkaWuoMcJxW4",
-//     authDomain: "aibloggenerator-e646d.firebaseapp.com",
-//     projectId: "aibloggenerator-e646d",
-//     storageBucket: "aibloggenerator-e646d.appspot.com",
-//     messagingSenderId: "957582879797",
-//     appId: "1:957582879797:web:295870ad0299215bfb957c",
-//     measurementId: "G-FGYJSBWHSE"
-// };
 
-// const firebaseApp = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(firebaseApp);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
